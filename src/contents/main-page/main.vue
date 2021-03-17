@@ -33,12 +33,12 @@ export default {
             let urlParams = this.getUrlParams()
             if (urlParams && urlParams.ipLists) {
                 for (let i = 0; i < urlParams.ipLists.length; i++) {
-                    let dom = `<div class="camera-item"><video class="camera-video" id="vdo-box-${i}" muted autoplay></video></div>`
+                    let dom = `<video class="camera-video" id="vdo-box-${i}" muted autoplay></video>`
                     wrap.innerHTML += dom
                     let url = `${location.origin}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
                     setTimeout(() => {
                         this.loadFlv(i, url)
-                    }, 500 * (i + 1));
+                    }, 1000 * (i + 1));
                 }
             }
         },
@@ -92,8 +92,15 @@ export default {
 .main-page {
     height: 100%;
     width: 100%;
-    #camera-wrap {
-        
+    & > #camera-wrap {
+        height: 100%;
+        width: 100%;
+        & #vdo-box-0,  #vdo-box-1 {
+            width: 100%;
+        }
+        & #vdo-box-2,  #vdo-box-3 {
+            width: 50%;
+        }
     }
 }
 </style>
