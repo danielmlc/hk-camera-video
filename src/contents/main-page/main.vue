@@ -1,10 +1,9 @@
 <template>
     <div class="main-page">
-        <div class="camera-lis" id="camera-wrap"/>
+        <div id="camera-wrap"/>
     </div>
 </template>
 <script>
-import config from '../../server/config.json'
 import flvjs from 'flv.js'
 export default {
     data () {
@@ -30,17 +29,16 @@ export default {
             return result
         },
         loadLists(){
-            console.log(process.env)
             let wrap = document.getElementById('camera-wrap')
             let urlParams = this.getUrlParams()
             if (urlParams && urlParams.ipLists) {
                 for (let i = 0; i < urlParams.ipLists.length; i++) {
-                    let dom = `<div class="camera-item"><video class="camera-vdo" id="vdo-box-${i}" muted autoplay></video></div>`
+                    let dom = `<div class="camera-item"><video class="camera-video" id="vdo-box-${i}" muted autoplay></video></div>`
                     wrap.innerHTML += dom
-                    let url = `http://${config.ip}:${config.port}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
+                    let url = `${location.origin}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
                     setTimeout(() => {
                         this.loadFlv(i, url)
-                    }, 1000 * (i + 1));
+                    }, 500 * (i + 1));
                 }
             }
         },
@@ -91,14 +89,11 @@ export default {
 }
 </script>
 <style lang="postcss" >
-.camera-lis {
-    display: flex;
-    flex-wrap: wrap;
-}
-.camera-item {
-    width:50%;
-}
-.camera-vdo {
+.main-page {
+    height: 100%;
     width: 100%;
+    #camera-wrap {
+        
+    }
 }
 </style>
