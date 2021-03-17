@@ -8,8 +8,11 @@
     "build": "webpages-packer --env production --config packer-config.js",
     "dev": "webpages-packer --env development --config packer-config.js  --watch true --include mainPage,server",
     "start": "node dist/server/server.js",
-    "deploy":"npm run build && pm2 start dist/server/server.js && pm2 list && pm2 log",
-    "redeploy":"npm run build && pm2 reload dist/server/server.js && pm2 list && pm2 log",
+    "predeploy": "npm run deletedeploy &&  npm run build",
+    "deploy": "pm2 start dist/server/server.js --name camera-video",
+    "postdeploy": "pm2 list && pm2 log",
+    "redeploy": "npm run build && pm2 reload camera-video && pm2 list && pm2 log",
+    "deletedeploy": "pm2 delete camera-video",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

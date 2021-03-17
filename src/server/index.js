@@ -4,7 +4,6 @@ const koaStatic = require('koa-static')
 const { server } = require('./yaml-provider')
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-
 function serverStart() {
   
   let app = express();
@@ -22,13 +21,12 @@ function serverStart() {
 }
 
 function handleGetRequest (req, res) {
-  // console.log('get请求 -> ', req.query)
   const params = req.query
   var url = `rtsp://${params.user}:${params.pwd}@${params.ip}/Streaming/Channels/102?transportmode=unicast`
   try {
     let common = ffmpeg(url)
         .setFfmpegPath(ffmpegPath)
-        .addInputOption("-rtsp_transport", "tcp", "-buffer_size", "102400")  // 这里可以添加一些 RTSP 优化的参数
+        .addInputOption("-rtsp_transport", "tcp", "-buffer_size", "102400", "-loglevel", "quiet")  // 这里可以添加一些 RTSP 优化的参数
         .on("start", function () {
             console.log(url, "Stream started.");
         })
