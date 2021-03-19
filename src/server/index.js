@@ -26,7 +26,7 @@ function handleGetRequest (req, res) {
   try {
     let common = ffmpeg(url)
         .setFfmpegPath(ffmpegPath)
-        .addInputOption("-rtsp_transport", "tcp", "-buffer_size", "102400", "-loglevel", "quiet")  // 这里可以添加一些 RTSP 优化的参数
+        .addInputOption("-rtsp_transport", "tcp", "-buffer_size", "102400")  // 这里可以添加一些 RTSP 优化的参数
         .on("start", function () {
             console.log(url, "Stream started.");
         })

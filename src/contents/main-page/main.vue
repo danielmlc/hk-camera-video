@@ -35,10 +35,12 @@ export default {
                 for (let i = 0; i < urlParams.ipLists.length; i++) {
                     let dom = `<video class="camera-video" id="vdo-box-${i}" muted autoplay></video>`
                     wrap.innerHTML += dom
-                    let url = `${location.origin}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
+                    let params = `ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
+                    //encodeURIComponent()
+                    let url = `${location.origin}/live/get?`+params
                     setTimeout(() => {
                         this.loadFlv(i, url)
-                    }, 1000 * (i + 1));
+                    }, 500 * (i + 1));
                 }
             }
         },
